@@ -48,12 +48,12 @@ player_moves_list.each do |attack, defense, wildcard, player_id|
     PlayerMove.create(attack: attack, defense: defense, wildcard: wildcard, player_id: player_id)
 end
 
-# name, hp, iq, str, lk
+# name, species, hp, iq, str, lk
 player_list = [
-    [NULL, 8, 9, 4, 3]
+    [NULL,"NERD" 8, 9, 4, 3]
 ] #[24] + 8 = [32] (plus one per boss defeated) Consider adding species column that says NERD
-player_list.each do |name, hp, iq, str, lk|
-    Player.create(name: name, hp: hp, iq: iq, str: str, lk: lk)
+player_list.each do |name, species hp, iq, str, lk|
+    Player.create(name: name, species: species, hp: hp, iq: iq, str: str, lk: lk)
 end
 
 

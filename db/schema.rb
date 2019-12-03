@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 6) do
+ActiveRecord::Schema.define(version: 7) do
 
   create_table "battles", force: :cascade do |t|
     t.integer  "player_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 6) do
     t.integer  "lk"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "species"
   end
 
 end
