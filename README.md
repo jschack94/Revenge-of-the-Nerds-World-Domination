@@ -21,7 +21,13 @@
 ~~As a user, I want to be able to enter my name to retrieve my records
 As a user, I want to enter a location and be given a random nearby restaurant suggestion
 As a user, I should be able to reject a suggestion and not see that restaurant suggestion again
-As a user, I want to be able to save to and retrieve a list of favorite restaurant suggestions~~
+As a user, I want to be able to save to and retrieve a list of favorite restaurant suggestions
+For example, if we were creating an app to review restaurants on Yelp, we might write:
+As a user, I want to enter a location and be given a random nearby restaurant suggestion. (**Read**)
+As a user, I want to be able to write a review for a restaurant. (**Create**)
+As a user, I want to enter a restaurant and be given user reviews of that restaurant. (**Read**)
+As a user, I should be able to edit my restaurant review. (**Update**)
+As a user, I want to be able to delete one of my restaurant reviews. (**Delete**)~~~~
 
 ## Instructions
 
@@ -69,14 +75,6 @@ What does your schema look like?
 What do your relationships look like?
 Where are foreign keys stored in a many-to-many relationship?
 etc.~~
-
-~~Your **second goal** should be to decide on your [user stories](https://en.wikipedia.org/wiki/User_story). You **must have a minimum of four user stories corresponding to the four CRUD actions** to help explain how a user will interact with your app. A user story should follow the general structure of `"As a <role>, I want <goal/desire> so that <benefit>."`.
-For example, if we were creating an app to review restaurants on Yelp, we might write:
-As a user, I want to enter a location and be given a random nearby restaurant suggestion. (**Read**)
-As a user, I want to be able to write a review for a restaurant. (**Create**)
-As a user, I want to enter a restaurant and be given user reviews of that restaurant. (**Read**)
-As a user, I should be able to edit my restaurant review. (**Update**)
-As a user, I want to be able to delete one of my restaurant reviews. (**Delete**)~~
 
 Which user stories are needed to give you a solid base to build off of? Which user stories can be left to later (stretch goals)? Think [skateboard instead of wheel](https://blog.crisp.se/2016/01/25/henrikkniberg/making-sense-of-mvp).
 
@@ -198,18 +196,6 @@ First let's think big picture: our goal is to take the user's input--a string of
 
 Now let's think about how we'll code out this process: first, we want a method that uses the restaurant name to query our database, right? Know of any ActiveRecord methods we could use to find a restaurant by its name?
 
-🤔
-
-Think on it....
-
-🤔
-
-Keep thinking....
-
-🤔
-
-Alright, have you got an idea?
-
 Is it this ActiveRecord method?
 
 ```ruby
@@ -247,8 +233,6 @@ And let's change our run file to just call the run method. Nice use of OOP!
 
 _**What other opportunities for abstraction can you find in this `run` method?**_ Take some time to think about it before moving forward as it will lead to cleaner code later on.
 
-![thumbs_up](https://media.giphy.com/media/111ebonMs90YLu/giphy.gif)
-
 So, we can greet our user, grab their input, and use that input to find a restaurant. We're on the home stretch, but there are a few things left to do before we can give them a proper _response_. First, we need to find the reviews associated with the restaurant, and then we need to output the content and usernames to the user. Phew! That still looks like a lot! But fear not! By tackling these in small steps one-by-one, we'll find that we can do this!
 
 1. Get reviews.
@@ -269,9 +253,6 @@ OH SNAP! It's because ActiveRecord writes that method for us already so long as 
 ```ruby
 restaurant.reviews
 ```
-
-✨ ActiveRecord Magic! 💫
-
 Now that we have the reviews, let's tackle the second step of printing out the content and usernames for the reviews. Before diving right into the code, let's think ahead a bit and put into practice those OOP principles and recall _Single Responsibility Principle_.
 
 We can avoid our refactor step by realizing that we can create a reusable method that prints out reviews. This method will iterate over a given array of reviews and outputs the content and username to the console. OOP!
@@ -285,8 +266,6 @@ end
 ```
 
 Now, add this method to the run method, and pass it the reviews we got through ActiveRecord. Finally, run `ruby bin/run.rb`. Woot, woot! We've got a working "skateboard" version of our app!!
-
-![party](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
 
 #### CRUD IT UP!
 
