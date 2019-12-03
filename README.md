@@ -6,6 +6,7 @@
  1. Access a Sqlite3 Database using ActiveRecord.
  2. You should have a minimum of three models.
   - https://app.quickdatabasediagrams.com/#/d/NHT6Q5
+  - https://dbdiagram.io/d/5de6c58eedf08a25543eabde
  4. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos.
  5. Use good OO design patterns. You should have separate models for your runner and CLI interface.
  
