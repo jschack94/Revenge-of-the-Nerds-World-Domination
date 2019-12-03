@@ -1,4 +1,17 @@
 # Revenge of the Nerds: World Domination
+## Setup
+After cloning this repository, run the following commands in your terminal:
+
+- bundle install
+- rake start
+- ruby bin/run.rb
+
+## Contributing Guide
+When contributing to this repository, please contact the owners of this repository via issue, e-mail or any other method to discuss the change you wish to make.
+
+
+## License
+This project is licensed under the MIT License.
 
 ## Project Requirements
 
@@ -9,14 +22,14 @@
   - https://dbdiagram.io/d/5de6c58eedf08a25543eabde
  4. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos.
  5. Use good OO design patterns. You should have separate models for your runner and CLI interface.
- 
+
 ### Option One - Data Analytics Project
 2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
 3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
 4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
+5. You should provide a CLI to display the return values of your interesting methods.
   **Resource:** [Easy Access APIs](https://github.com/learn-co-curriculum/easy-access-apis)
-  
+
 ### Brainstorming and Proposing a Project Idea
 ~~Projects need to be approved prior to launching into them, so take some time to brainstorm project options that will fulfill the requirements above.  You must have a minimum of four [user stories](https://en.wikipedia.org/wiki/User_story) to help explain how a user will interact with your app.  A user story should follow the general structure of `"As a <role>, I want <goal/desire> so that <benefit>"`. In example, if we were creating an app to randomly choose nearby restaurants on Yelp, we might write:~~
 ~~As a user, I want to be able to enter my name to retrieve my records
@@ -44,7 +57,7 @@ As a user, I want to be able to delete one of my restaurant reviews. (**Delete**
       - Describe something you struggled to build, and show us how you ultimately implemented it in your code.
       - Discuss 3 things you learned in the process of working on this project.
       - Address, if anything, what you would change or add to what you have today?
-      - Present any code you would like to highlight.   
+      - Present any code you would like to highlight.
 7. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
 
 ---
