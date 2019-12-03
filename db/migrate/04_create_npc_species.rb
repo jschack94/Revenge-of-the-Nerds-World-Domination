@@ -1,10 +1,10 @@
 class CreateNpcSpecies < ActiveRecord::Migration[4.2]
     def change
         create_table :npc_species do |t|
-            t.string :hp
-            t.string :iq
-            t.string :str 
-            t.string :lk
+            t.integer :hp
+            t.integer :iq
+            t.integer :str 
+            t.integer :lk
             t.string :npc_attack
             t.string :npc_defense
             t.string :ult

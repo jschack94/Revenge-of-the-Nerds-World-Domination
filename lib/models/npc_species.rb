@@ -1,2 +1,2 @@
-class NpcMove < ActiveRecord::Base
+class NpcSpecie < ActiveRecord::Base
 end
