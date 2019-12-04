@@ -10,23 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 7) do
+ActiveRecord::Schema.define(version: 20191204215711) do
 
   create_table "battles", force: :cascade do |t|
     t.integer  "player_id"
     t.integer  "npc_id"
     t.boolean  "player_win"
-    t.integer  "match_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "matches", force: :cascade do |t|
-    t.boolean  "battle_1"
-    t.boolean  "battle_2"
-    t.boolean  "battle_3"
-    t.boolean  "battle_4"
-    t.boolean  "battle_5"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
