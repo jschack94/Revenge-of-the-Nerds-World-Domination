@@ -1,18 +1,20 @@
+ActiveRecord::Base.logger = Logger.new(STDOUT)
+
 #player_id, npc_id, player_win, match_id
 battles_list = [
-    [1, 1, NULL, 1],
-    [1, 2, NULL, 1],
-    [1, 3, NULL, 1]
+    [1, 1, nil, 1],
+    [1, 2, nil, 1],
+    [1, 3, nil, 1]
 ]
 battles_list.each do |player_id, npc_id, player_win, match_id|
-    Battle.create(player_id:, player_id, npc_id: npc_id, player_win: player_win, match_id: match_id)
+    Battle.create(player_id: player_id, npc_id: npc_id, player_win: player_win, match_id: match_id)
 end
 
 # battle_1, battle_2, battle_3, battle_4, battle_5
 matches_list = [
-    [NULL, NULL, NULL, NULL, NULL],
-    [NULL, NULL, NULL, NULL, NULL],
-    [NULL, NULL, NULL, NULL, NULL]
+    [nil, nil, nil, nil, nil],
+    [nil, nil, nil, nil, nil],
+    [nil, nil, nil, nil, nil]
 ] # Maybe add an id to match the boss/villain at that level per match (set of battles)
 matches_list.each do |battle_1, battle_2, battle_3, battle_4, battle_5|
     Match.create(battle_1: battle_1, battle_2: battle_2, battle_3: battle_3, battle_4: battle_4, battle_5: battle_5)
@@ -22,7 +24,7 @@ end
 # name, species, npc_species_id
 npc_list = [
     ["Chad", "Bully", 1],
-    ["Mrs. Karen", "Teacher", 2]
+    ["Mrs. Karen", "Teacher", 2],
     ["'Mom'", "Evil Step-Mother", 3]
 ]
 npc_list.each do |name, species, npc_species_id|
@@ -48,12 +50,12 @@ player_moves_list.each do |attack, defense, wildcard, player_id|
     PlayerMove.create(attack: attack, defense: defense, wildcard: wildcard, player_id: player_id)
 end
 
-# name, hp, iq, str, lk
+# name, species, hp, iq, str, lk
 player_list = [
-    [NULL, 8, 9, 4, 3]
+    [nil,"NERD", 8, 9, 4, 3]
 ] #[24] + 8 = [32] (plus one per boss defeated) Consider adding species column that says NERD
-player_list.each do |name, hp, iq, str, lk|
-    Player.create(name: name, hp: hp, iq: iq, str: str, lk: lk)
+player_list.each do |name, species, hp, iq, str, lk|
+    Player.create(name: name, species: species, hp: hp, iq: iq, str: str, lk: lk)
 end
 
 
