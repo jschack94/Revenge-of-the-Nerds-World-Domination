@@ -1,3 +1,7 @@
+require_relative "../lib/command_line_interface.rb"
+
+main_menu
+
 require_relative '../config/environment'
 require_all 'lib'
 
@@ -11,3 +15,7 @@ require_all 'lib'
 
 
 Player.intro
+
+
+
+
