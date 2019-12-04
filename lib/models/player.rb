@@ -7,7 +7,7 @@ class Player < ActiveRecord::Base
     # if stat_assigner returns complete, then it should load a text screen saying something like "Ready for Boss 1", and then load the first boss through the load_battle method in the battle class.
     def self.intro 
         self.create_name
-        self.stat_assigner
+        # self.stat_assigner
     end
 
     # def self.add_name(name)
@@ -28,7 +28,8 @@ class Player < ActiveRecord::Base
         puts "You are a NERD. Your purpose is to seek revenge and dominate. Before you start your adventure, please choose your name..."
         user_name = gets.chomp
         # add_name(user_name)
-        Player.update(name: user_name)
+        current_player = Player.update(name: user_name)
+        binding.pry
         puts "Welcome #{user_name.upcase}, your journey begins now..."
         # binding.pry
         return user_name
