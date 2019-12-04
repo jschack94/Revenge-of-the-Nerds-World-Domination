@@ -1,4 +1,3 @@
-require_relative 'match.rb'
 require_relative 'npc_specie.rb'
 require_relative 'npc.rb'
 require_relative 'battle.rb'
