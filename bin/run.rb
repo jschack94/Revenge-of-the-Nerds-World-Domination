@@ -3,12 +3,11 @@ require_relative '../config/environment'
 require_all 'lib'
 
 start_screen
-
-# binding.pry 
+# binding.pry
 
 # Match.update(1, :battle_1 => true)
 
-# binding.pry 
+# binding.pry
 
 
-Player.intro
+# Player.intro
