@@ -6,5 +6,5 @@ require_relative 'player.rb'
 class Npc < ActiveRecord::Base
     has_one :npc_specie
     has_many :battles
-    has_many :players through :battles
+    
 end
