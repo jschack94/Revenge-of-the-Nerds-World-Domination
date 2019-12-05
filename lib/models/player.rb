@@ -22,10 +22,10 @@ class Player < ActiveRecord::Base
         i = 0
         while i == 0 do 
             character_choice = gets.chomp.downcase
-            if character_choice == "create character"
+            if character_choice == "create character" 
                 i += 1
                 self.create_character
-            elsif character_choice == 'default character'
+            elsif character_choice == 'default character' 
                 i += 1
                 self.default_character
             else 
@@ -39,6 +39,14 @@ class Player < ActiveRecord::Base
         PlayerMove.reads_default_moveset
         puts "Press ENTER if you are ready to continue..."
         gets.chomp
+
+        Battle.gameplay_introduction
+        puts "Press ENTER if you are ready to continue..."
+        gets.chomp
+
+        Battle.initialize_battle 
+
+
     end
     
     def self.default_character
