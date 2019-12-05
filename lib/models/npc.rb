@@ -6,5 +6,11 @@ require_relative 'player.rb'
 class Npc < ActiveRecord::Base
     has_one :npc_specie
     has_many :battles
-    # has_many :players through :battles
+  
+    def self.choose_a_boss
+        row_num = 0 
+        self.all.each {row_num += 1}
+        rando_num = rand(1..row_num)
+        return Npc.find(rando_num)
+    end
 end

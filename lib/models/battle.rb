@@ -8,6 +8,53 @@ class Battle < ActiveRecord::Base
     belongs_to :player
     belongs_to :npc
     
+    def self.gameplay_introduction
+        puts "For the longest time. Nerds have been at the bottom of the food chain. Constantly bullied and picked on by the elite members of society. Now, every nerd has come together, and decided that enough is enough. It your time to battle those that have picked on you for your entire life. Will you seize the opportunity and rise above or keep playing DnD in your mom's basement? Your first battle begins now!"
+
+        puts "**"
+        puts "**"
+        puts "**"
+        puts "Type 'NERD POWER' if you will rise to the occasion... Type 'but DnD is still cool' if you won't.."
+        puts "**"
+        puts "**"
+        
+        i = 1
+        while i != 0 do
+            answer = gets.chomp.downcase
+            if answer == 'nerd power'
+                puts "Good choice NERD!"
+                i -= 1
+            elsif answer == 'but DnD is still cool'.downcase
+                puts "Not an option NERD"
+            else
+              puts "I thought you were a NERD...? Type the correct answer NOW"
+            end
+        end
+    end
+
+    def self.initialize_battle 
+        boss_object = Npc.choose_a_boss
+        boss_name = boss_object[:name]
+        boss_species = boss_object[:species]
+        boss_id = boss_object[:npc_species_id] 
+        boss_stats_moves_object = NpcSpecie.find(boss_id)
+
+        puts "press ENTER to begin the battle!"
+        puts "*****"
+        gets.chomp 
+
+        puts "get ready!"
+        puts "#{Player.last[:name]}, NERD VS #{boss_name}, #{boss_species}"
+
+        puts "press ENTER to begin the battle!"
+        puts "*****"
+        gets.chomp 
+
+    end
+
+    
+
+
     
 end
 
