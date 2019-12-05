@@ -233,10 +233,13 @@ end
 def battle_menu
   puts CLEAR
   header
-  Battle.gameplay_introduction
-  ready_set_go = PROMPT.select("Are you ready to face your demons?") do |option|
-    option.choice "LET'S GO!", 1
-    option.choice "No, I want to go back to mommy.", 2
+  puts "For the longest time. Nerds have been at the bottom of the food chain. Constantly bullied and picked on by the elite members of society. Now, every nerd has come together, and decided that enough is enough. It your time to battle those that have picked on you for your entire life. Will you seize the opportunity and rise above or keep playing DnD in your mom's basement? Your first battle begins now!"
+  puts "**"
+  puts "**"
+  puts "**"
+  ready_set_go = PROMPT.select("Choose 'NERD LEVEL UP!!' if you will rise to the occasion... Choose 'but DnD is still cool...' if you won't..") do |option|
+    option.choice "NERD LEVEL UP!!", 1
+    option.choice "but DnD is still cool...", 2
   end
   if ready_set_go == 1
     puts CLEAR
@@ -244,7 +247,9 @@ def battle_menu
     Battle.initialize_battle
   elsif ready_set_go == 2
     puts CLEAR
-    exit
+    header
+    puts "Not an option NERD"
+    Battle.initialize_battle
   end
 end
 # ---------------- Main Menu --------------------------------------
