@@ -69,7 +69,7 @@ def return_to_main_menu
 end
 # ---------------- Main Menu --------------------------------------
 def main_menu
-  header
+  # header
   main_menu_choice = PROMPT.select("What would you like to do?") do |option|
     option.choice 'Play Game', 1
     option.choice 'Look Through Past Games', 2
@@ -310,6 +310,7 @@ end
     pastel = Pastel.new
     puts pastel.red(font.write("GET READY!"))
     puts "#{Player.last[:name]}, NERD VS #{boss_name}, #{boss_species}"
+    Battle.battle_begins
   end
 
   def battle_begin_prompt

@@ -54,12 +54,20 @@ class Battle < ActiveRecord::Base
     end
 
     def self.battle_begins
+        player_hp = 2
+        boss_hp = 2
         player_id = Player.last[:id]
-        player_hp = Player.last[:hp]
         boss_specie_id = Npc.last[:npc_species_id]
-        boss_hp = NpcSpecie.find(boss_specie_id)[:hp]
-        binding.pry
-        while player_hp or boss_hp > 0 do 
+
+        # binding.pry
+        
+        while (player_hp > 0) and (boss_hp > 0) do 
+            player_id = Player.last[:id]
+            player_hp = Player.last[:hp]
+            boss_specie_id = Npc.last[:npc_species_id]
+            boss_hp = NpcSpecie.find(boss_specie_id)[:hp]
+            
+            
             puts "YOUR HP IS #{player_hp}!"
             puts "#{Npc.last[:name].upcase} HP is #{boss_hp}!"
             puts "***"
@@ -123,8 +131,14 @@ class Battle < ActiveRecord::Base
             else
             puts "Not a valid choice. Please enter a correct move to use with."
             end
-
         end
+
+        p self.who_won(player_hp: player_hp, boss_hp: boss_hp)
+
+        self.reset_stats
+            
+        p "hello..?"
+
     end
 
     def self.attack_calculation
@@ -158,7 +172,21 @@ class Battle < ActiveRecord::Base
         return power_num
     end
     
+    def self.who_won(player_hp: , boss_hp:)
+        if (player_hp > 0) and (boss_hp <= 0)
+            puts "CONGRATULATIONS! NERDS HAVE PREVAILED! REVENGE IS A DISH BEST SERVED COLD!"
+        elsif (boss_hp > 0) and (player_hp <= 0)
+            puts "THE NERDS SPEND ANOTHER DAY IN THE DUMPS.... BETTER LUCK NEXT TIME.... 8_("
+        elsif (player_hp <= 0) and (boss_hp <= 0)
+            puts "IT'S A DEAD TIE! DEADLOCKED! BUT THIS PROVES THAT NERDS ARE ON EVEN FOOTING NOW! DO YOU DARE TRY FOR MORE...?"
+        end
+    end
 
+    def self.reset_stats 
+        NpcSpecie.update(1, :hp => 8, :iq => 2, :str => 10, :lk => 4)
+        NpcSpecie.update(2, :hp => 10, :iq => 10, :str => 4, :lk => 2)
+        NpcSpecie.update(3, :hp => 12, :iq => 6, :str => 5, :lk => 8)
+    end
 
     
 end
