@@ -1,12 +1,13 @@
 # ---------------- Required Files ----------------
 require "tty-prompt"
 require "tty-font"
+require 'tty-box'
 # ----------------- Constants --------------------
 PROMPT = TTY::Prompt.new
 CLEAR = "\e[H\e[2J"
 # ------------------ Header ----------------------
 def header
-  font = TTY::Font.new(:standard)
+  font = TTY::Font.new(:starwars)
   pastel = Pastel.new
   puts pastel.blue(font.write("REVENGE OF THE NERDS"))
   puts pastel.green(font.write("WORLD DOMINATION"))
@@ -69,7 +70,6 @@ def return_to_main_menu
 end
 # ---------------- Main Menu --------------------------------------
 def main_menu
-  header
   main_menu_choice = PROMPT.select("What would you like to do?") do |option|
     option.choice 'Play Game', 1
     option.choice 'Look Through Past Games', 2
@@ -153,13 +153,15 @@ def self.random_stat_assignment
       rando = array_keys.sample
     Player.update(base_ch_id, rando => (Player.last[rando] + 1))
   end
-  puts "Here is your Character, and the randomly generating stats!"
-  puts "NAME: #{base_ch[:name]}"
-  puts "HP: #{Player.last[:hp]}"
-  puts "IQ: #{Player.last[:iq]}"
-  puts "STR: #{Player.last[:str]}"
-  puts "LK: #{Player.last[:lk]}"
-  puts "You now have a character and finalized stats."
+  box = TTY::Box.frame "Here is your Character, and the randomly generating stats!", "NAME: #{base_ch[:name]}", "HP: #{Player.last[:hp]}", "IQ: #{Player.last[:iq]}", "STR: #{Player.last[:str]}", "LK: #{Player.last[:lk]}", "You now have a character and finalized stats.", padding: 3, align: :center
+  print box
+  # puts "Here is your Character, and the randomly generating stats!"
+  # puts "NAME: #{base_ch[:name]}"
+  # puts "HP: #{Player.last[:hp]}"
+  # puts "IQ: #{Player.last[:iq]}"
+  # puts "STR: #{Player.last[:str]}"
+  # puts "LK: #{Player.last[:lk]}"
+  # puts "You now have a character and finalized stats."
   character_skills_menu
 end
 
@@ -177,12 +179,14 @@ def manual_stat_assignment
   puts "Your nerd now needs his stats assigned to him. Please divide his stats between HP, IQ, STR, and LK:"
   array_keys = [:hp, :iq, :str, :lk]
   i = 8
-  puts "Here is your player, and his default base stats:"
-  puts "NAME: #{Player.last[:name]}"
-  puts "HP: #{Player.last[:hp]}"
-  puts "IQ: #{Player.last[:iq]}"
-  puts "STR: #{Player.last[:str]}"
-  puts "LK: #{Player.last[:lk]}"
+  box = TTY::Box.frame "Here is your player, and his default base stats:", "NAME: #{Player.last[:name]}", "HP: #{Player.last[:hp]}", "IQ: #{Player.last[:iq]}", "STR: #{Player.last[:str]}", "LK: #{Player.last[:lk]}", padding: 3, align: :center
+  print box
+  # puts "Here is your player, and his default base stats:"
+  # puts "NAME: #{Player.last[:name]}"
+  # puts "HP: #{Player.last[:hp]}"
+  # puts "IQ: #{Player.last[:iq]}"
+  # puts "STR: #{Player.last[:str]}"
+  # puts "LK: #{Player.last[:lk]}"
 
   id_num = Player.last[:id]
   8.times do
@@ -202,11 +206,13 @@ def manual_stat_assignment
     Player.update(id_num, :lk => (Player.last[:lk] + 1))
   end
   end
-  puts "These are your current stats!"
-  puts "HP: #{Player.last[:hp]}"
-  puts "IQ: #{Player.last[:iq]}"
-  puts "STR: #{Player.last[:str]}"
-  puts "LK: #{Player.last[:lk]}"
+  box = TTY::Box.frame "These are your current stats!", "HP: #{Player.last[:hp]}", "IQ: #{Player.last[:iq]}", "STR: #{Player.last[:str]}", "LK: #{Player.last[:lk]}", padding: 3, align: :center
+  print box
+  # puts "These are your current stats!"
+  # puts "HP: #{Player.last[:hp]}"
+  # puts "IQ: #{Player.last[:iq]}"
+  # puts "STR: #{Player.last[:str]}"
+  # puts "LK: #{Player.last[:lk]}"
   character_skills_menu
 end
 
@@ -228,7 +234,9 @@ def character_skills_menu
   elsif character_skills_choice == 2
     puts CLEAR
     header
-    puts "Your default skills are: Lab Experiment\nFetal Position\nI'm rubber\nYou're glue!"
+    box = TTY::Box.frame "Your default skills are:", "Lab Experiment", "Fetal Position", "I'm rubber", "You're glue!", padding: 3, align: :center
+    print box
+    # puts "Your default skills are: Lab Experiment\nFetal Position\nI'm rubber\nYou're glue!"
     battle_menu
   elsif character_skills_choice == 3
     puts CLEAR
@@ -278,12 +286,8 @@ end
 # end
 # ---------------- Battle ----------------------------------------
 def battle_menu
-  puts CLEAR
-  header
-  puts "For the longest time. Nerds have been at the bottom of the food chain. Constantly bullied and picked on by the elite members of society. Now, every nerd has come together, and decided that enough is enough. It your time to battle those that have picked on you for your entire life. Will you seize the opportunity and rise above or keep playing DnD in your mom's basement? Your first battle begins now!"
-  puts "**"
-  puts "**"
-  puts "**"
+  box = TTY::Box.frame "For the longest time.", "Nerds have been at the bottom of the food chain.", "Constantly bullied and picked on by the elite members of society.", "Now, every nerd has come together, and decided that enough is enough.", "It your time to battle those that have picked on you for your entire life.", "Will you seize the opportunity and rise above or keep playing DnD in your mom's basement?", "Your first battle begins now!", padding: 3, align: :center
+  print box
   ready_set_go = PROMPT.select("Choose 'NERD LEVEL UP!!' if you will rise to the occasion... Choose 'but DnD is still cool...' if you won't..") do |option|
     option.choice "NERD LEVEL UP!!", 1
     option.choice "but DnD is still cool...", 2
@@ -292,11 +296,13 @@ def battle_menu
     puts CLEAR
     header
     battle_begin_prompt
-  elsif ready_set_go == 2
-    puts CLEAR
-    header
-    puts "Not an option NERD"
-    battle_begin_prompt
+  else ready_set_go == 2
+    CLEAR
+    font = TTY::Font.new(:starwars)
+    pastel = Pastel.new
+    puts pastel.red(font.write("Not an option NERD"))
+    battle_menu
+    # battle_begin_prompt
   end
 end
 
@@ -310,6 +316,7 @@ end
     pastel = Pastel.new
     puts pastel.red(font.write("GET READY!"))
     puts "#{Player.last[:name]}, NERD VS #{boss_name}, #{boss_species}"
+    return_to_main_menu
   end
 
   def battle_begin_prompt
