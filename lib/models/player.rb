@@ -20,15 +20,15 @@ class Player < ActiveRecord::Base
         puts "Before you begin your rampage, please choose if you want to play the game with a default character (nerdiest of nerds) or create your own."
         puts "Input 'Create Character' or 'Default Character'"
         i = 0
-        while i == 0 do 
+        while i == 0 do
             character_choice = gets.chomp.downcase
-            if character_choice == "create character" 
+            if character_choice == "create character"
                 i += 1
                 self.create_character
-            elsif character_choice == 'default character' 
+            elsif character_choice == 'default character'
                 i += 1
                 self.default_character
-            else 
+            else
                 puts "that did not match any of the options, please type in your option again."
             end
         end
@@ -49,7 +49,7 @@ class Player < ActiveRecord::Base
         Battle.battle_begins
 
     end
-    
+
     def self.default_character
         puts "Your name is #{Player.find(1)[:name]}.".upcase
         puts "*"
@@ -63,7 +63,7 @@ class Player < ActiveRecord::Base
         i = 8
         base_ch = Player.create(name: "Sheldon", hp: 8, iq: 9, str: 4, lk: 3)
         base_ch_id = base_ch[:id]
-        while i != 0 
+        while i != 0
             rando = array_keys.sample
             Player.update(base_ch_id, rando => (Player.last[rando] + 1))
             i -= 1
@@ -83,7 +83,7 @@ class Player < ActiveRecord::Base
         Player.create(name: name, hp: 8, iq: 9, str: 4, lk: 3)
         puts "Congrats, #{name} the nerd has been created!"
         Player.manual_stat_assignment
-        
+
     end
 
     def self.manual_stat_assignment
@@ -98,7 +98,7 @@ class Player < ActiveRecord::Base
         puts "LK: #{Player.last[:lk]}"
 
         id_num = Player.last[:id]
-        while i != 0 
+        while i != 0
         puts "You have #{i} points. Please type out the stat that you want to increase by one"
         puts "These are your current stats!"
         puts "HP: #{Player.last[:hp]}"
@@ -115,7 +115,7 @@ class Player < ActiveRecord::Base
             Player.update(id_num, :str => (Player.last[:str] + 1))
         elsif stat_input == "lk"
             Player.update(id_num, :lk => (Player.last[:lk] + 1))
-        else 
+        else
             puts "An improper value was typed. Please try again."
             i += 1
         end
@@ -123,8 +123,5 @@ class Player < ActiveRecord::Base
         end
     end
 
-    
+
 end
-
-
-
