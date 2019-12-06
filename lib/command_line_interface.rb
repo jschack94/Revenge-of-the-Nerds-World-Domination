@@ -153,7 +153,7 @@ def self.random_stat_assignment
       rando = array_keys.sample
     Player.update(base_ch_id, rando => (Player.last[rando] + 1))
   end
-  box = TTY::Box.frame "Here is your Character, and the randomly generating stats!", "NAME: #{base_ch[:name]}", "HP: #{Player.last[:hp]}", "IQ: #{Player.last[:iq]}", "STR: #{Player.last[:str]}", "LK: #{Player.last[:lk]}", "You now have a character and finalized stats.", padding: 3, align: :center
+  box = TTY::Box.frame "Here is your Character, and the randomly generating stats!", "NAME: #{base_ch[:name]}", "HP ♥️: #{Player.last[:hp]}", "IQ: #{Player.last[:iq]}", "STR: #{Player.last[:str]}", "LK: #{Player.last[:lk]}", "You now have a character and finalized stats.", padding: 3, align: :center
   print box
   # puts "Here is your Character, and the randomly generating stats!"
   # puts "NAME: #{base_ch[:name]}"
@@ -206,7 +206,7 @@ def manual_stat_assignment
     Player.update(id_num, :lk => (Player.last[:lk] + 1))
   end
   end
-  box = TTY::Box.frame "These are your current stats!", "HP: #{Player.last[:hp]}", "IQ: #{Player.last[:iq]}", "STR: #{Player.last[:str]}", "LK: #{Player.last[:lk]}", padding: 3, align: :center
+  box = TTY::Box.frame "These are your current stats!", "HP ♥️: #{Player.last[:hp]}", "IQ: #{Player.last[:iq]}", "STR: #{Player.last[:str]}", "LK: #{Player.last[:lk]}", padding: 3, align: :center
   print box
   # puts "These are your current stats!"
   # puts "HP: #{Player.last[:hp]}"
