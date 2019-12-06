@@ -14,5 +14,6 @@ class PlayerMove < ActiveRecord::Base
         puts "Your WILDCARD move is #{PlayerMove.find(1)[:wildcard]}"
         puts "*"
     end
+
 end
 

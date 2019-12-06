@@ -38,6 +38,8 @@ class Battle < ActiveRecord::Base
         boss_species = boss_object[:species]
         boss_id = boss_object[:npc_species_id] 
         boss_stats_moves_object = NpcSpecie.find(boss_id)
+        
+        Npc.create(name: boss_name, species: boss_species, npc_species_id: boss_id)
 
         puts "press ENTER to begin the battle!"
         puts "*****"
@@ -49,9 +51,112 @@ class Battle < ActiveRecord::Base
         puts "press ENTER to begin the battle!"
         puts "*****"
         gets.chomp 
-
     end
 
+    def self.battle_begins
+        player_id = Player.last[:id]
+        player_hp = Player.last[:hp]
+        boss_specie_id = Npc.last[:npc_species_id]
+        boss_hp = NpcSpecie.find(boss_specie_id)[:hp]
+        
+        while player_hp or boss_hp > 0 do 
+            puts "YOUR HP IS #{player_hp}!"
+            puts "#{Npc.last[:name].upcase} HP is #{boss_hp}!"
+            puts "***"
+            puts "These are your moves!"
+            PlayerMove.reads_default_moveset
+            puts "Type 'ATTACK', 'DEFENSE', or 'WILDCARD'"
+            move_choice = gets.chomp.downcase
+            if move_choice == 'ATTACK'.downcase
+                damage = self.attack_calculation
+                enemy_effect = self.npc_effect_calculation(boss_specie_id)
+
+                if enemy_effect > 0
+                    Player.update(player_id, :hp => (player_hp - enemy_effect))
+                    puts "#{Npc.last[:name].upcase} attacked!"
+                elsif enemy_effect < 0
+                    enemy_effect = enemy_effect * -1
+                    NpcSpecie.update(boss_specie_id, :hp => (boss_hp + enemy_effect))
+                    puts "#{Npc.last[:name].upcase} defended!"
+                elsif enemy_effect == 0
+                    puts "#{Npc.last[:name].upcase} has no effect whatsoever..."
+                end
+
+                NpcSpecie.update(boss_specie_id, :hp => (boss_hp - damage))
+                puts "#{Player.last[:name].upcase} attacked!"
+                
+            elsif move_choice == 'DEFENSE'.downcase
+                heal = self.defense_calculation
+                enemy_effect = self.npc_effect_calculation(boss_specie_id)
+            
+                if enemy_effect > 0
+                    Player.update(player_id, :hp => (player_hp - enemy_effect))
+                    puts "#{Npc.last[:name].upcase} attacked!"
+                elsif enemy_effect < 0
+                    enemy_effect = enemy_effect * -1
+                    NpcSpecie.update(boss_specie_id, :hp => (boss_hp + enemy_effect))
+                    puts "#{Npc.last[:name].upcase} defended!"
+                elsif enemy_effect == 0
+                    puts "#{Npc.last[:name].upcase} has no effect whatsoever..."
+                end
+
+                Player.update(player_id, :hp => (player_hp + heal))
+                puts "#{Player.last[:name].upcase} defended!"
+
+            elsif move_choice == "WILDCARD".downcase
+                enemy_effect = self.npc_effect_calculation(boss_specie_id)
+
+                if enemy_effect > 0
+                    Player.update(player_id, :hp => (player_hp - enemy_effect))
+                    puts "#{Npc.last[:name].upcase} attacked!"
+                elsif enemy_effect < 0
+                    enemy_effect = enemy_effect * -1
+                    NpcSpecie.update(boss_specie_id, :hp => (boss_hp + enemy_effect))
+                    puts "#{Npc.last[:name].upcase} defended!"
+                elsif enemy_effect == 0
+                    puts "#{Npc.last[:name].upcase} has no effect whatsoever..."
+                end
+
+                self.wildcard_calculation(boss_hp: boss_hp, player_hp: player_hp, boss_specie_id: boss_specie_id)
+                # binding.pry
+                puts "#{Player.last[:name].upcase} used wildcard! O.o"
+            else
+            puts "Not a valid choice. Please enter a correct move to use with."
+            end
+
+        end
+    end
+
+    def self.attack_calculation
+        attack_num = Player.last[:iq] + Player.last[:str]
+        random_num = rand(2..4)
+        damage = attack_num / random_num
+        return damage
+    end
+
+    def self.defense_calculation
+        defense_num = Player.last[:iq] + Player.last[:str]
+        random_num = rand(2..4)
+        heal = defense_num / random_num
+        heal = heal / 2
+        return heal
+    end
+
+    def self.wildcard_calculation(boss_hp: , player_hp:, boss_specie_id:)
+        damage = self.attack_calculation * 2
+        heal = self.defense_calculation * 2
+        calculation_array = [NpcSpecie.update(boss_specie_id, :hp => (boss_hp - damage)), Player.update(player_id, :hp => (player_hp + heal)), ""]
+        return calculation_array.sample
+    end
+
+    def self.npc_effect_calculation(specie_id)
+        power_num = NpcSpecie.find(specie_id)[:iq] + NpcSpecie.find(specie_id)[:str]
+        random_num = rand(2..4)
+        power_num = power_num / random_num
+        random_num = rand(-1..1)
+        power_num = power_num * random_num
+        return power_num
+    end
     
 
 

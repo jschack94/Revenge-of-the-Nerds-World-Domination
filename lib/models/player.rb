@@ -46,6 +46,7 @@ class Player < ActiveRecord::Base
 
         Battle.initialize_battle 
 
+        Battle.battle_begins
 
     end
     
