@@ -58,7 +58,7 @@ class Battle < ActiveRecord::Base
         player_hp = Player.last[:hp]
         boss_specie_id = Npc.last[:npc_species_id]
         boss_hp = NpcSpecie.find(boss_specie_id)[:hp]
-        
+        binding.pry
         while player_hp or boss_hp > 0 do 
             puts "YOUR HP IS #{player_hp}!"
             puts "#{Npc.last[:name].upcase} HP is #{boss_hp}!"
