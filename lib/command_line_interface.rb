@@ -42,22 +42,22 @@ def language_menu
   if language_choice == 1
     puts CLEAR
     header
-    default_character_or_customize_menu
+    main_menu
   elsif language_choice == 2
     puts CLEAR
     header
     puts "404: 데이터베이스에서 언어 지원을 찾을 수 없으며 향후에는 구현되지 않을 것입니다. 당신은 영어에 붙어 있다고 생각합니다."
-    default_character_or_customize_menu
+    main_menu
   elsif language_choice == 3
     puts CLEAR
     header
     puts "404: Lo sentimos, el soporte de idiomas no se encuentra en nuestras bases de datos y probablemente no se implementará en el futuro. Supongo que estás atrapado con el inglés."
-    default_character_or_customize_menu
+    main_menu
   elsif language_choice == 4
     puts CLEAR
     header
     puts "404: Désolé, le support linguistique n’a pas été trouvé dans nos bases de données et ne sera probablement pas implémenté à l’avenir. Je suppose que vous êtes coincé avec l'anglais"
-    default_character_or_customize_menu
+    main_menu
   elsif language_choice == 5
     puts CLEAR
     exit
@@ -66,6 +66,53 @@ end
 
 def return_to_main_menu
   main_menu
+end
+# ---------------- Main Menu --------------------------------------
+def main_menu
+  header
+  main_menu_choice = PROMPT.select("What would you like to do?") do |option|
+    option.choice 'Play Game', 1
+    option.choice 'Look Through Past Games', 2
+    option.choice 'Instructions', 3
+    option.choice 'Delete user and high score', 4
+    option.choice 'Exit', 5
+  end
+  if main_menu_choice == 1
+    puts CLEAR
+    header
+    default_character_or_customize_menu
+  elsif main_menu_choice == 2
+    puts CLEAR
+    header
+    past_games
+  elsif main_menu_choice == 3
+    puts CLEAR
+    header
+    instructions
+  elsif main_menu_choice == 4
+    puts CLEAR
+    header
+    delete_user
+  elsif main_menu_choice == 5
+    puts CLEAR
+    exit
+  end
+end
+
+def past_games
+  Player.find_and_display_by_name
+  main_menu
+end
+
+def instructions
+  puts "Goal: Get your competitor (boss) down to HP 0  before they do the same to you.\nYou will choose be given the option to choose a move once the match has been begun. You can choose either to attack, defend, or play the wildcard. Once you make your selection, the damage (decrease in computer’s HP) and defense (increase in you HP) will be initiated. The strength of an attack as well as the increase in health will be determined by a random number generator between 2 and 4. You can also choose to play the wildcard which will randomly choose between an attack, defense, and miss. If you randomly land on the attack or defense, you will see a greater amount of damage done on your partner. After you choose your move, your computer will automatically go through the exact same actions until we have a winner."
+
+end
+
+def delete_player
+  Player.delete_player
+  puts "Player deleted."
+  return_to_main_menu
 end
 # --------------- Player --------------------------
 def default_character_or_customize_menu
@@ -244,33 +291,35 @@ def battle_menu
   if ready_set_go == 1
     puts CLEAR
     header
-    Battle.initialize_battle
+    battle_begin_prompt
   elsif ready_set_go == 2
     puts CLEAR
     header
     puts "Not an option NERD"
-    Battle.initialize_battle
+    battle_begin_prompt
   end
 end
-# ---------------- Main Menu --------------------------------------
-# def main_menu ##for add-ons
-#   puts CLEAR
-#   header
-#   main_menu_choice = PROMPT.select("What would you like to do?") do |option|
-#   option.choice 'Option 1', 1
-#   option.choice 'Option 2', 2
-#   option.choice 'Exit', 3
-#   end
-#   if main_menu_choice == 1
-#     puts CLEAR
-#     header
-#     p "option_one_menu"
-#   elsif main_menu_choice == 2
-#     puts CLEAR
-#     header
-#     p "option_two_menu"
-#   elsif main_menu_choice == 3
-#     puts CLEAR
-#     exit
-#   end
-# end
+
+  def start_battle
+    boss_object = Npc.choose_a_boss
+    boss_name = boss_object[:name]
+    boss_species = boss_object[:species]
+    boss_id = boss_object[:npc_species_id]
+    boss_stats_moves_object = NpcSpecie.find(boss_id)
+    font = TTY::Font.new(:starwars)
+    pastel = Pastel.new
+    puts pastel.red(font.write("GET READY!"))
+    puts "#{Player.last[:name]}, NERD VS #{boss_name}, #{boss_species}"
+  end
+
+  def battle_begin_prompt
+    battle_begin = PROMPT.select("Press ENTER to begin the battle!") do |option|
+      option.choice 'ENTER', 1
+      option.choice 'Return to Main Menu'
+    end
+    if battle_begin == 1
+      start_battle
+    elsif battle_begin == 2
+      return_to_main_menu
+    end
+  end
