@@ -316,7 +316,7 @@ end
     pastel = Pastel.new
     puts pastel.red(font.write("GET READY!"))
     puts "#{Player.last[:name]}, NERD VS #{boss_name}, #{boss_species}"
-    return_to_main_menu
+    Battle.battle_begins
   end
 
   def battle_begin_prompt

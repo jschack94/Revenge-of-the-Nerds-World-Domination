@@ -8,9 +8,9 @@ class Npc < ActiveRecord::Base
     has_many :battles
   
     def self.choose_a_boss
-        row_num = 0 
-        self.all.each {row_num += 1}
-        rando_num = rand(1..row_num)
+        # row_num = 0 
+        # self.all.each {row_num += 1}
+        rando_num = rand(1..3) # 3 used to be row_num
         return Npc.find(rando_num)
     end
 end
