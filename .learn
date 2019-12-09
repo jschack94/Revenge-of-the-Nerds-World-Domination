@@ -2,5 +2,9 @@ tags:
   - a tag
 languages:
   - a language
-resources: 
+resources:
   - 0
+
+---
+languages:
+- ruby
